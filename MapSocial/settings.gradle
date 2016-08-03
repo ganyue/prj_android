@@ -1,1 +1,4 @@
-include ':app', "map"
+include ':app'
+include ':map'
+include ':appbase'
+include ':utils'
