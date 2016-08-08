@@ -138,11 +138,11 @@ public class TcpClient extends Thread{
     };
 
     public interface TcpClientListener {
-        void onSocketConnectFail (Exception e, String dstIp, int dstPort);
-        void onSendBefore (String msg, String dstIp, int dstPort);
-        void onSendSuccess (String msg, String dstIp, int dstPort);
-        void onSendFailed (String msg, Exception e, String dstIp, int dstPort);
-        void onReceive (String msg, String fromIp, int fromPort);
-        void onReceiveError (Exception e, String fromIp, int fromPort);
+        void onSocketConnectFail(Exception e, String dstIp, int dstPort);
+        void onSendBefore(String msg, String dstIp, int dstPort);
+        void onSendSuccess(String msg, String dstIp, int dstPort);
+        void onSendFailed(String msg, Exception e, String dstIp, int dstPort);
+        void onReceive(String msg, String fromIp, int fromPort);
+        void onReceiveError(Exception e, String fromIp, int fromPort);
     }
 }

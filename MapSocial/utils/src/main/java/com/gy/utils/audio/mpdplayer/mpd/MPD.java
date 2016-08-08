@@ -288,7 +288,7 @@ public class MPD {
      * @param string case-insensitive locator string. Anything that exactly matches <code>string</code> will be returned in the results.
      * @return a Collection of <code>Music</code>
      * @throws MPDServerException if an error occur while contacting server
-     * @see com.gy.utils.audio.mpdplayer.mpd.Music
+     * @see Music
      */
     public List<Music> find(String type, String string) throws MPDServerException {
         return genericSearch(MPDCommand.MPD_CMD_FIND, type, string);
@@ -941,7 +941,7 @@ public class MPD {
      * @return a Collection of <code>Music</code>.
      * @throws MPDServerException
      *            if an error occur while contacting server.
-     * @see com.gy.utils.audio.mpdplayer.mpd.Music
+     * @see Music
      */
     public Collection<Music> search(String type, String string) throws MPDServerException {
         return genericSearch(MPDCommand.MPD_CMD_SEARCH, type, string);

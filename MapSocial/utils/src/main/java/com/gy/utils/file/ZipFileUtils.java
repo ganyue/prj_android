@@ -104,7 +104,7 @@ public class ZipFileUtils {
     }
 
     public interface OnZipFileCallback {
-        void onUnpackSuccess ();
-        void onUnpackFail (Exception e);
+        void onUnpackSuccess();
+        void onUnpackFail(Exception e);
     }
 }

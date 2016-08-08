@@ -96,8 +96,8 @@ public class TcpSender extends Thread {
     }
 
     public interface TcpSenderListener {
-        boolean onSendBefore (String msg);
-        void onSendSuccess (String msg);
-        void onSendFailed (String msg, Exception e);
+        boolean onSendBefore(String msg);
+        void onSendSuccess(String msg);
+        void onSendFailed(String msg, Exception e);
     }
 }

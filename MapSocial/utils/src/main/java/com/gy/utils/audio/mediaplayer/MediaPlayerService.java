@@ -254,6 +254,11 @@ public class MediaPlayerService extends Service implements IAudioPlayer {
     }
 
     @Override
+    public boolean isAlive() {
+        return mediaPlayer != null;
+    }
+
+    @Override
     public Playlist getPlaylist() {
         return playlist;
     }

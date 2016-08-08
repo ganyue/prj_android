@@ -54,7 +54,7 @@ public class TcpReceiver extends Thread {
     }
 
     public interface TcpReceiverListener {
-        void onReceive (byte[] buf, int offset, int len);
-        void onReceiveError (Exception e);
+        void onReceive(byte[] buf, int offset, int len);
+        void onReceiveError(Exception e);
     }
 }

@@ -160,8 +160,8 @@ public class AudioUtils {
     }
 
     public interface OnAudioListener {
-        void onStateChanged (String sender, Playlist playlist, int operation, int position, boolean isPlaying);
-        void onComplete (String sender, Playlist playlist);
-        void onError (String sender, int extra);
+        void onStateChanged(String sender, Playlist playlist, int operation, int position, boolean isPlaying);
+        void onComplete(String sender, Playlist playlist);
+        void onError(String sender, int extra);
     }
 }

@@ -20,8 +20,8 @@ public class UnknownArtist extends Artist {
         return "";
     }
 
-    public static final Parcelable.Creator<UnknownArtist> CREATOR =
-            new Parcelable.Creator<UnknownArtist>() {
+    public static final Creator<UnknownArtist> CREATOR =
+            new Creator<UnknownArtist>() {
                 public UnknownArtist createFromParcel(Parcel in) {
                     return new UnknownArtist(in);
                 }

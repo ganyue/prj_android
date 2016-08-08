@@ -71,7 +71,7 @@ public class TcpServer extends Thread {
 
     public interface TcpServerListener {
         void onSererStartFail(Exception e);
-        void onAccept (Socket socket);
-        void onAcceptError (IOException e);
+        void onAccept(Socket socket);
+        void onAcceptError(IOException e);
     }
 }

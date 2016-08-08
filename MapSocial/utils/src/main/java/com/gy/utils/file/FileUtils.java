@@ -223,13 +223,13 @@ public class FileUtils {
     }
 
     public interface OnDeleteCallback {
-        void onDeleteFile (File file);
-        void onDeleteFinished ();
+        void onDeleteFile(File file);
+        void onDeleteFinished();
     }
 
     public interface OnCopyCallback {
-        void onCopyFile (File file);
-        void onCopying (File file, long copiedSize, long fileSize);
-        void onCopyFinished ();
+        void onCopyFile(File file);
+        void onCopying(File file, long copiedSize, long fileSize);
+        void onCopyFinished();
     }
 }

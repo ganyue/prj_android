@@ -5,6 +5,6 @@ package com.gy.utils.http;
  *
  */
 public interface OnRequestListener {
-    void onResponse (String url, Object responseData);
-    void onError (String msg);
+    void onResponse(String url, Object responseData);
+    void onError(String msg);
 }

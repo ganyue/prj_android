@@ -104,6 +104,6 @@ public class WifiUtils {
     }
 
     public interface OnNetworkChangedListener {
-        void onNetworkChanged (boolean isConnected, int type);
+        void onNetworkChanged(boolean isConnected, int type);
     }
 }
