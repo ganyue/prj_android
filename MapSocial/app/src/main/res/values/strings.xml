@@ -1,4 +1,8 @@
 <resources>
-    <string name="app_name">MapSocial</string>
+    <string name="app_name">老司机</string>
     <string name="action_settings">Settings</string>
+
+    <string name="chat">聊天</string>
+    <string name="nearby">附近</string>
+    <string name="mine">我</string>
 </resources>

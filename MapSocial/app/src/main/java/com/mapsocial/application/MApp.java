@@ -1,5 +1,7 @@
 package com.mapsocial.application;
 
+import android.graphics.Typeface;
+
 import com.baidu.mapapi.SDKInitializer;
 import com.gy.appbase.application.BaseApplication;
 
@@ -18,5 +20,4 @@ public class MApp extends BaseApplication{
         SDKInitializer.initialize(this);
         //TODO init other things if you want
     }
-
 }

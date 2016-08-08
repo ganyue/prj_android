@@ -27,7 +27,7 @@ public class BaseApplication extends Application{
         application = this;
         isDebug = (getApplicationInfo().flags& ApplicationInfo.FLAG_DEBUGGABLE)!=0;
 
-        LogUtils.enable(isDebug);   //debug 版本打印日志, release版本不打印
+        LogUtils.enable(isDebug());   //debug 版本打印日志, release版本不打印
         initCrashHandler();         //设置全局异常处理器
         getImageLoader();           //初始化 image loader
         getHttpUtils();             //初始化 http utils

@@ -2,10 +2,97 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:fitsSystemWindows="true"
+    android:background="@color/lightGreen">
 
-    <com.baidu.mapapi.map.MapView
+    <View
+        android:id="@+id/v_navBar_divider"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="@dimen/divider_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/nav_bar_height"
+        android:background="@color/lightGray"/>
 
+    <LinearLayout
+        android:id="@+id/llyt_navbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nav_bar_height"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="@color/lightWhite">
+        <LinearLayout
+            android:id="@+id/llyt_chat"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/iv_chat"
+                android:layout_width="@dimen/nav_icon_height"
+                android:layout_height="@dimen/nav_icon_height"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_chat_clicked"/>
+            <TextView
+                android:id="@+id/tv_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/lightGreen"
+                android:textSize="@dimen/text_size_small"
+                android:text="@string/chat"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llyt_nearby"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/iv_nearby"
+                android:layout_width="@dimen/nav_icon_height"
+                android:layout_height="@dimen/nav_icon_height"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_nearby_unclicked"/>
+            <TextView
+                android:id="@+id/tv_nearby"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/lightGreen"
+                android:textSize="@dimen/text_size_small"
+                android:text="@string/nearby"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llyt_mine"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/iv_mine"
+                android:layout_width="@dimen/nav_icon_height"
+                android:layout_height="@dimen/nav_icon_height"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_mine_unclicked"/>
+            <TextView
+                android:id="@+id/tv_mine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/lightGreen"
+                android:textSize="@dimen/text_size_small"
+                android:text="@string/mine"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/flyt_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/v_navBar_divider"
+        android:background="@color/lightWhite"/>
 </RelativeLayout>
