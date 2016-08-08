@@ -38,6 +38,7 @@ public class MainActivity extends BaseFragmentActivity implements View.OnClickLi
     @Override
     protected void setContent(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main);
+        setTransluentStatusAndNavigation(true);
     }
 
     @Override
