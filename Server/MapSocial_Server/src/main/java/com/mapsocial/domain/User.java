@@ -1,4 +1,4 @@
-package com.mapsocial.dbbeans;
+package com.mapsocial.domain;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -17,11 +17,11 @@ public class User implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @NotEmpty(message = "账号不能为空")
-    @Size(min = 2, max = 20, message = "账号长度需要2到20位")
-    @Pattern(regexp = "[a-zA-Z0-9]", message = "账号中不能包含特殊字符")
+    @Size(min = 6, max = 20, message = "账号长度需要2到20位")
+    @Pattern(regexp = "^[a-zA-Z0-9]{6,20}$", message = "账号中不能包含特殊字符")
     @Column(nullable = false, length = 20, unique = true)
     private String username;    // 用户名
 
@@ -36,12 +36,12 @@ public class User implements Serializable{
     private String nick;        // 昵称
 
     @Pattern(regexp = "^1[0-9]{10}$", message = "手机号格式非法")
-    @Column(length = 11, unique = true)
+    @Column(nullable = true, length = 11, unique = true)
     private String phone;       // 手机号
 
     @Size(max=32)
     @Email(message= "邮箱格式不对" )
-    @Column(nullable = false, length = 32, unique = true)
+    @Column(nullable = true, length = 32, unique = true)
     private String email;       // 邮箱
 
     @Column(length = 128)
@@ -51,6 +51,18 @@ public class User implements Serializable{
     private Long ltime;         // 最近登录时间
 
     public User() {
+    }
+
+    public User(String username, String password, String nick,
+                String phone, String email, String portrait, Long rtime, Long ltime) {
+        this.username = username;
+        this.password = password;
+        this.nick = nick;
+        this.phone = phone;
+        this.email = email;
+        this.portrait = portrait;
+        this.rtime = rtime;
+        this.ltime = ltime;
     }
 
     @Override
@@ -68,11 +80,11 @@ public class User implements Serializable{
                 '}' + "\n" + serialVersionUID;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

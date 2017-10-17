@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>用户列表</title>
+</head>
+<body>
+
+<h1>用户列表</h1><br/>
+
+<div>
+    <a th:href="@{/users/add}">添加用户</a>
+</div><br/>
+
+<table border="1">
+    <thead>
+    <tr>
+        <td>id</td>
+        <td>username</td>
+        <td>password</td>
+        <td>nick</td>
+        <td>phone</td>
+        <td>email</td>
+        <td>portrait</td>
+        <td>register_time</td>
+        <td>last_modify_time</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${userModel.userList}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.password}"></td>
+        <td th:text="${user.nick}"></td>
+        <td th:text="${user.phone}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.portrait}"></td>
+        <td th:text="${user.rtime}"></td>
+        <td th:text="${user.ltime}"></td>
+        <td><a th:href="@{'/users/delete/'+${user.id}}">删除</a></td>
+        <td><a th:href="@{'/users/edit/'+${user.id}}">修改</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
