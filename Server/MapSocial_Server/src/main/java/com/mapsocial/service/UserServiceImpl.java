@@ -5,6 +5,9 @@ import com.mapsocial.domain.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -13,7 +16,7 @@ import javax.transaction.Transactional;
  * Created by yue.gan on 2017/10/16.
  */
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserDao userDao;
@@ -45,5 +48,10 @@ public class UserServiceImpl implements UserService {
     public Page<User> listUserByNickLike(String nick, Pageable pageable) {
         nick = "%" + nick + "%";
         return userDao.findByNickLike(nick, pageable);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userDao.findByUsername(username);
     }
 }

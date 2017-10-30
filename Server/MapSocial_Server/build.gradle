@@ -2,6 +2,9 @@ buildscript {
 	ext {
 		springBootVersion = '1.5.7.RELEASE'
 	}
+	// 自定义  Thymeleaf 和 Thymeleaf Layout Dialect 的版本
+	ext['thymeleaf.version'] = '3.0.3.RELEASE'
+	ext['thymeleaf-layout-dialect.version'] = '2.2.0'
 	repositories {
 		mavenCentral()
 	}
@@ -23,8 +26,11 @@ repositories {
 }
 
 dependencies {
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+	compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4:3.0.2.RELEASE')
 	compile('org.springframework.boot:spring-boot-starter-web')
 	runtime('mysql:mysql-connector-java')
 	testCompile('org.springframework.boot:spring-boot-starter-test')

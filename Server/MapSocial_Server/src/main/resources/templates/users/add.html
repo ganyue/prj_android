@@ -12,6 +12,10 @@
     用户名：<input type="text" name="username" th:value="*{username}"/><br/>
     密&emsp;码：<input type="text" name="password" th:value="*{password}"/><br/>
     昵&emsp;称：<input type="text" name="nick" th:value="*{nick}"/><br/>
+    角&emsp;色：<select name="authorityId" data-placeholder="请选择">
+                    <option value="1">管理员</option>
+                    <option value="2">普通用户</option>
+                </select><br/>
     <input type="submit" value="提交"/>
 </form>
 

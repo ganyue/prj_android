@@ -1,6 +1,9 @@
 package com.mapsocial.controller;
 
+import com.mapsocial.domain.Authority;
 import com.mapsocial.domain.User;
+import com.mapsocial.service.AuthorityService;
+import com.mapsocial.service.AuthorityServiceImpl;
 import com.mapsocial.service.UserService;
 import com.mapsocial.util.ConstraintViolationExceptionHandler;
 import com.mapsocial.vo.Response;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.ConstraintViolationException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +32,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AuthorityService authorityService;
 
 
     /**
@@ -59,8 +66,11 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Response> saveOrUpdateUser (User user) {
+    public ResponseEntity<Response> saveOrUpdateUser (User user, Integer authorityId) {
         try {
+            List<Authority> authorities = new ArrayList<>();
+            authorities.add(authorityService.getAuthorityById(authorityId));
+            user.setAuthorities(authorities);
             userService.saveOrUpdateUser(user);
         } catch (ConstraintViolationException e) {
             return ResponseEntity.ok().body(new Response(false,

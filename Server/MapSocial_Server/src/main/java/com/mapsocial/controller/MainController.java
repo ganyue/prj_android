@@ -1,6 +1,8 @@
 package com.mapsocial.controller;
 
+import com.mapsocial.domain.Authority;
 import com.mapsocial.domain.User;
+import com.mapsocial.service.AuthorityService;
 import com.mapsocial.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,8 +19,13 @@ import java.util.List;
 @Controller
 public class MainController {
 
+    private static final Integer ROL_USER_AUTHORITY_ID = 2;
+
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AuthorityService authorityService;
 
     @GetMapping("/")
     public String root() {
@@ -48,6 +56,10 @@ public class MainController {
 
     @PostMapping("/register")
     public String registerUser(User user) {
+        List<Authority> authorities = new ArrayList<>();
+        authorities.add(authorityService.getAuthorityById(ROL_USER_AUTHORITY_ID));
+        user.setAuthorities(authorities);
+
         userService.registerUser(user);
         return "redirect:/login";
     }
