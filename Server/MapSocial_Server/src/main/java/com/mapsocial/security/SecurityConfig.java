@@ -2,6 +2,7 @@ package com.mapsocial.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -41,14 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/css/**", "/fonts/**", "/index").permitAll()
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/css/**", "/fonts/**", "/index").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
-                .antMatchers("/admins/**").hasRole("ADMIN")
-                .and().formLogin().loginPage("/login").failureUrl("/login-error")
-                .and().rememberMe().key("ganyue")
-                .and().exceptionHandling().accessDeniedPage("/403");
-        http.csrf().ignoringAntMatchers("/h2-console/**");
-        http.headers().frameOptions().sameOrigin();
+                .antMatchers("/admins/**").hasRole("ADMIN");
+        http.csrf().disable();
     }
 
     @Override
