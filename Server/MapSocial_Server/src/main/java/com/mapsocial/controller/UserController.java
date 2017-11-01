@@ -1,9 +1,6 @@
 package com.mapsocial.controller;
 
-import com.mapsocial.domain.Authority;
 import com.mapsocial.domain.User;
-import com.mapsocial.service.AuthorityService;
-import com.mapsocial.service.AuthorityServiceImpl;
 import com.mapsocial.service.UserService;
 import com.mapsocial.util.ConstraintViolationExceptionHandler;
 import com.mapsocial.vo.Response;
@@ -33,10 +30,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private AuthorityService authorityService;
-
-
     /**
      * 根据昵称分页查询用户
      * @param pageIndex
@@ -46,7 +39,7 @@ public class UserController {
      * @return
      */
     @GetMapping
-    public ModelAndView list(@RequestParam(value = "pageIndex", required = false, defaultValue = "0") Integer pageIndex,
+    public List<User> list(@RequestParam(value = "pageIndex", required = false, defaultValue = "0") Integer pageIndex,
                              @RequestParam(value = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                              @RequestParam(value = "nick", required = false, defaultValue = "") String nick,
                              Model model) {
@@ -54,9 +47,9 @@ public class UserController {
         Page<User> page = userService.listUserByNickLike(nick, pageable);
         List<User> list = page.getContent();
 
-        model.addAttribute("page", page);
-        model.addAttribute("userList", list);
-        return new ModelAndView("users/list", "userModel", model);
+//        model.addAttribute("page", page);
+//        model.addAttribute("userList", list);
+        return list;//new ModelAndView("users/list", "userModel", model);
     }
 
     @GetMapping("/add")
@@ -66,11 +59,8 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Response> saveOrUpdateUser (User user, Integer authorityId) {
+    public ResponseEntity<Response> saveOrUpdateUser (@RequestBody User user) {
         try {
-            List<Authority> authorities = new ArrayList<>();
-            authorities.add(authorityService.getAuthorityById(authorityId));
-            user.setAuthorities(authorities);
             userService.saveOrUpdateUser(user);
         } catch (ConstraintViolationException e) {
             return ResponseEntity.ok().body(new Response(false,

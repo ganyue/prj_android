@@ -1,8 +1,6 @@
 package com.mapsocial.controller;
 
-import com.mapsocial.domain.Authority;
 import com.mapsocial.domain.User;
-import com.mapsocial.service.AuthorityService;
 import com.mapsocial.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,44 +21,37 @@ public class MainController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private AuthorityService authorityService;
-
-    @GetMapping("/")
-    public String root() {
-        return "redirect:/index";
-    }
-
-    @GetMapping("/index")
-    public String index () {
-        return "index";
-    }
-
-    @GetMapping("/login")
-    public String login () {
-        return "login";
-    }
-
-    @GetMapping("/login-error")
-    public String loginError (Model model) {
-        model.addAttribute("loginError", true);
-        model.addAttribute("errorMsg", "登录失败，账号或者密码错误");
-        return "login";
-    }
-
-    @GetMapping("/register")
-    public String register () {
-        return "register";
-    }
-
-    @PostMapping("/register")
-    public String registerUser(User user) {
-        List<Authority> authorities = new ArrayList<>();
-        authorities.add(authorityService.getAuthorityById(ROL_USER_AUTHORITY_ID));
-        user.setAuthorities(authorities);
-
-        userService.registerUser(user);
-        return "redirect:/login";
-    }
+//
+//    @GetMapping("/")
+//    public String root() {
+//        return "redirect:/index";
+//    }
+//
+//    @GetMapping("/index")
+//    public String index () {
+//        return "index";
+//    }
+//
+//    @GetMapping("/login")
+//    public String login () {
+//        return "login";
+//    }
+//
+//    @GetMapping("/login-error")
+//    public String loginError (Model model) {
+//        model.addAttribute("loginError", true);
+//        model.addAttribute("errorMsg", "登录失败，账号或者密码错误");
+//        return "login";
+//    }
+//
+//    @GetMapping("/register")
+//    public String register () {
+//        return "register";
+//    }
+//
+//    @PostMapping("/register")
+//    public String registerUser(User user) {
+//        userService.registerUser(user);
+//        return "redirect:/login";
+//    }
 }

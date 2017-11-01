@@ -18,7 +18,7 @@ import java.util.List;
  * Created by yue.gan on 2017/10/15.
  */
 @Entity
-public class User implements UserDetails, Serializable{
+public class User implements Serializable{
     private static final long serialVersionUID = User.class.getName().hashCode();
 
     @Id
@@ -55,13 +55,6 @@ public class User implements UserDetails, Serializable{
 
     private Long rtime;         // 注册时间
     private Long ltime;         // 最近登录时间
-
-    @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_authority", joinColumns =
-            @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns =
-            @JoinColumn(name = "authority_id", referencedColumnName = "id"))
-    private List<Authority> authorities;
 
     public User() {
     }
@@ -163,38 +156,5 @@ public class User implements UserDetails, Serializable{
 
     public void setLtime(Long ltime) {
         this.ltime = ltime;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-    public void setAuthorities(List<Authority> authorities) {
-        this.authorities = authorities;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
-        for (GrantedAuthority authority: this.authorities) {
-            simpleGrantedAuthorities.add(new SimpleGrantedAuthority(authority.getAuthority()));
-        }
-        return simpleGrantedAuthorities;
     }
 }
