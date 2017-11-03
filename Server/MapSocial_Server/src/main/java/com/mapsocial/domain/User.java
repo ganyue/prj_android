@@ -12,6 +12,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,8 +33,8 @@ public class User implements UserDetails, Serializable{
     private String username;    // 用户名
 
     @NotEmpty(message = "密码不能为空")
-    @Size(min = 6, max = 20, message = "密码长度需要6到20位")
-    @Column(nullable = false, length = 20)
+    @Size(min = 6, max = 128, message = "密码长度需要6到20位")
+    @Column(nullable = false, length = 128)
     private String password;    // 密码
 
     @NotEmpty(message = "昵称不能为空")
@@ -76,6 +77,7 @@ public class User implements UserDetails, Serializable{
         this.portrait = portrait;
         this.rtime = rtime;
         this.ltime = ltime;
+        authorities = Collections.emptyList();
     }
 
     @Override

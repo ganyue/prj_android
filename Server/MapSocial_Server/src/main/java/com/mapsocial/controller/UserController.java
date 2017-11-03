@@ -2,8 +2,6 @@ package com.mapsocial.controller;
 
 import com.mapsocial.domain.Authority;
 import com.mapsocial.domain.User;
-import com.mapsocial.service.AuthorityService;
-import com.mapsocial.service.AuthorityServiceImpl;
 import com.mapsocial.service.UserService;
 import com.mapsocial.util.ConstraintViolationExceptionHandler;
 import com.mapsocial.vo.Response;
@@ -28,14 +26,8 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-    private final String userModelName = "userModel";
-
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private AuthorityService authorityService;
-
 
     /**
      * 根据昵称分页查询用户
@@ -65,11 +57,14 @@ public class UserController {
         return new ModelAndView("users/add", "userModel", model);
     }
 
+    /**
+     * <p>添加或者保存用户数据，为了防止误加，保存后只有user的权限
+     */
     @PostMapping
-    public ResponseEntity<Response> saveOrUpdateUser (User user, Integer authorityId) {
+    public ResponseEntity<Response> saveOrUpdateUser (User user) {
         try {
             List<Authority> authorities = new ArrayList<>();
-            authorities.add(authorityService.getAuthorityById(authorityId));
+            authorities.add(Authority.createUserAuthority());
             user.setAuthorities(authorities);
             userService.saveOrUpdateUser(user);
         } catch (ConstraintViolationException e) {
@@ -79,8 +74,7 @@ public class UserController {
         return ResponseEntity.ok().body(new Response(true, "success", user));
     }
 
-    @GetMapping(value = "delete/{id}")
-//    @DeleteMapping(value = "delete/{id}")
+    @DeleteMapping(value = "delete/{id}")
     public ResponseEntity<Response> delete (@PathVariable("id") Integer id) {
         try {
             userService.removeUser(id);

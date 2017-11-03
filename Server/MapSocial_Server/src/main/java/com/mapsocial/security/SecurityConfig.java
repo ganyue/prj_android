@@ -1,5 +1,7 @@
 package com.mapsocial.security;
 
+import com.mapsocial.filter.JwtAuthenticationFilter;
+import com.mapsocial.filter.JwtLoginFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -11,7 +13,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
@@ -28,11 +29,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     private PasswordEncoder passwordEncoder;
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService);
@@ -42,15 +38,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/css/**", "/fonts/**", "/index").permitAll()
-                .antMatchers("/h2-console/**").permitAll()
-                .antMatchers("/admins/**").hasRole("ADMIN");
-        http.csrf().disable();
+        http.csrf()
+                .disable()
+                .authorizeRequests().antMatchers(HttpMethod.POST, "/register").permitAll()
+                .antMatchers("/admins/**").hasRole("ADMIN")
+                .antMatchers("/users/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .addFilter(new JwtLoginFilter(authenticationManager()))
+                .addFilter(new JwtAuthenticationFilter(authenticationManager(), userDetailsService));
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
         auth.authenticationProvider(authenticationProvider());
     }
 }
