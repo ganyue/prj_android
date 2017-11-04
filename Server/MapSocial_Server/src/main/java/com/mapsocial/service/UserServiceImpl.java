@@ -3,6 +3,8 @@ package com.mapsocial.service;
 import com.mapsocial.domain.User;
 import com.mapsocial.domain.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,12 +25,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Transactional
     @Override
+    @CachePut(value = "users", key = "#user.username")
     public User saveOrUpdateUser(User user) {
         return userDao.save(user);
     }
 
     @Transactional
     @Override
+    @CachePut(value = "users", key = "#user.username")
     public User registerUser(User user) {
         return userDao.save(user);
     }

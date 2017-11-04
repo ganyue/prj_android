@@ -90,9 +90,14 @@ public class MainController {
         }
     }
 
-    @GetMapping("test")
-    public ResponseEntity testGet (@RequestHeader(JwtConstants.TOKEN_HEADER_PARAM_NAME)String token) {
-        Jws<Claims> pasedToken = JwtUtils.parseToken(token);
+//    @GetMapping("/test")
+//    public ResponseEntity testGet (@RequestHeader(JwtConstants.TOKEN_HEADER_PARAM_NAME)String token) {
+//        Jws<Claims> pasedToken = JwtUtils.parseToken(token);
+//        return ResponseEntity.ok().body(new Response(true, "success", "testGet Method in MainController"));
+//    }
+
+    @GetMapping("/test")
+    public ResponseEntity testGet () {
         return ResponseEntity.ok().body(new Response(true, "success", "testGet Method in MainController"));
     }
 }
